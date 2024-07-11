@@ -4,6 +4,9 @@ import { createClient } from "@/utils/supabase/server";
 import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
 import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
 import Header from "@/components/Header";
+import Image from "next/image";
+import landingPhoto from "@/public/images/PSOC.png"
+import Footer from "@/components/Footer";
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
@@ -53,19 +56,29 @@ export default async function Index() {
   // );
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-
-      <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3 mt-10">
-        <Header />
+    <div className="flex-1 w-full flex flex-col  items-center">
+      <Header />
+      <div>
         <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
+          <div className="w-full mb-10 ">
+            <Image src={landingPhoto} alt="BIT Logo" height={900} className="mx-auto rounded-lg" />
+          </div>
         </main>
+        {/* <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+          <p>
+
+            <a
+              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
+              target="_blank"
+              className="font-bold hover:underline"
+              rel="noreferrer"
+            >
+              Contact Us
+            </a>
+          </p>
+        </footer> */}
+
       </div>
-
-
-
-
-
 
     </div>
   );
