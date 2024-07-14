@@ -11,7 +11,7 @@ export default function Footer() {
         <p className="text-lg">&#169; Photographic society, BIT Mesra</p>
         <div className="flex flex-row items-center sm:gap-4 gap-8  mt-4  sm:mt-0  ">
           <Link
-            href="https://www.facebook.com/LiterarySocietyBITMesra/"
+            href="https://www.google.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex justify-center items-center "
@@ -19,7 +19,7 @@ export default function Footer() {
             <IconFacebook />
           </Link>
           <Link
-            href="https://www.instagram.com/litsocbitm_"
+            href="https://www.google.com/_"
             target="_blank"
             rel="noopener noreferrer"
             className="flex justify-center items-center"
@@ -27,7 +27,7 @@ export default function Footer() {
             <IconInstagram />
           </Link>
           <Link
-            href="https://www.linkedin.com/company/literary-society-bit-mesra"
+            href="https://www.google.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex justify-center items-center"
