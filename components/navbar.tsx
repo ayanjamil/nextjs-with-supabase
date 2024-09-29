@@ -24,7 +24,7 @@ const navbarContent: NavbarLink[] = [
 export function Navbar(props: any) {
     return (
         <header
-            className="static top-0 z-50 flex-shrink-0 py-4 bg-red-900 md:sticky mt-10"
+            className="static top-0 z-50 flex-shrink-0 py-4 my-4 md:sticky mt-10"
             {...props}
         >
             <div className="container flex flex-col items-start justify-between px-6 mx-auto md:flex-row md:items-center">
@@ -33,8 +33,8 @@ export function Navbar(props: any) {
                         <Image src={psocWhite} alt="PSOC Logo" width={120} height={120} />
                     </div>
                 </Link>
-                <div className=" bg-yellow-900 flex flex-col  ">
-                    <div className="flex justify-end gap-x-2">
+                <div className="  flex flex-col  ">
+                    {/* <div className="flex justify-end gap-x-2">
                         <Link
                             href="https://www.google.com/"
                             target="_blank"
@@ -59,7 +59,7 @@ export function Navbar(props: any) {
                         >
                             <IconLinkedin />
                         </Link>
-                    </div>
+                    </div> */}
 
                     <Menu items={navbarContent} />
                 </div>
@@ -71,7 +71,7 @@ export function Navbar(props: any) {
 function Menu({ items }: { items: NavbarLink[] }) {
     return (
         <ul
-            className="flex flex-row gap-x-8 bg-green-900 mt-5"
+            className="flex flex-row gap-x-8  mt-5"
             data-cy="navbar-menu"
         >
             {items.map((item) => (
