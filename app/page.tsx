@@ -31,7 +31,9 @@ const laptopWallpapers = [
 ];
 
 export default function Home() {
-  const [activeButton, setActiveButton] = useState<"mobile" | "laptop" | null>(null);
+  const [activeButton, setActiveButton] = useState<"mobile" | "laptop" | null>(
+    null
+  );
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -77,7 +79,7 @@ export default function Home() {
 
         <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
           <div className="w-full lg:w-1/2 h-full flex justify-center flex-col items-center lg:items-start p-4 lg:p-8 ml-0 lg:ml-11">
-            <div className="font-homenaje text-5xl md:text-6xl lg:text-8xl pb-3 lg:pb-5 text-center lg:text-left">
+            <div className=" font-homenaje text-6xl md:text-7xl lg:text-9xl pb-3 lg:pb-5 text-center lg:text-left">
               WALLPAPERS
             </div>
             <div className="text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
@@ -148,6 +150,12 @@ export default function Home() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* section 3 */}
+
+        <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
+
         </div>
       </div>
     </div>
