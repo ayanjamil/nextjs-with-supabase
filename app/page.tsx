@@ -11,6 +11,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import DownloadButton from "@/components/ui/download";
 
 const mobileWallpapers = [
   "/images/mobile/1.jpg",
@@ -126,7 +127,7 @@ export default function Home() {
                         <CarouselItem key={index}>
                           <div className="p-1 md:p-2 lg:p-3">
                             <Card>
-                              <CardContent className="flex aspect-square items-center justify-center p-2 md:p-4 lg:p-6">
+                              <CardContent className="relative flex aspect-square items-center justify-center p-2 md:p-4 lg:p-6">
                                 <Image
                                   src={image}
                                   alt={`Wallpaper ${index + 1}`}
@@ -134,6 +135,7 @@ export default function Home() {
                                   height={500}
                                   className="object-cover rounded-lg w-full h-full"
                                 />
+                                <DownloadButton imagePath={image} />
                               </CardContent>
                             </Card>
                           </div>
@@ -154,9 +156,7 @@ export default function Home() {
 
         {/* section 3 */}
 
-        <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
-
-        </div>
+        <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center"></div>
       </div>
     </div>
   );
