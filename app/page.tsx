@@ -12,24 +12,10 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import DownloadButton from "@/components/ui/download";
-
-const mobileWallpapers = [
-  "/images/mobile/1.jpg",
-  "/images/mobile/2.jpg",
-  "/images/mobile/3.jpg",
-  "/images/mobile/4.jpg",
-  "/images/mobile/5.jpg",
-];
-
-const laptopWallpapers = [
-  "/images/laptop/1.jpg",
-  "/images/laptop/2.jpg",
-  "/images/laptop/3.jpg",
-  "/images/laptop/4.jpg",
-  "/images/laptop/5.jpg",
-  "/images/laptop/6.jpg",
-  "/images/laptop/7.jpg",
-];
+import { ParallaxScroll } from "@/components/ui/parallax-scroll";
+import { mobileData } from "@/imagePaths/mobileWallpaperData";
+import { laptopData } from "@/imagePaths/laptopWallpaperData";
+import { galleryData } from "@/imagePaths/galleryData";
 
 export default function Home() {
   const [activeButton, setActiveButton] = useState<"mobile" | "laptop" | null>(
@@ -54,11 +40,15 @@ export default function Home() {
 
   useEffect(() => {
     if (activeButton === "mobile") {
-      setCount(mobileWallpapers.length);
+      setCount(mobileData.length);
     } else if (activeButton === "laptop") {
-      setCount(laptopWallpapers.length);
+      setCount(laptopData.length);
     }
-  }, [activeButton]);
+    if (api) {
+      api.scrollTo(0);
+      setCurrent(1);
+    }
+  }, [activeButton, api]);
 
   return (
     <div className="flex-1 w-full flex flex-col  items-center">
@@ -121,21 +111,21 @@ export default function Home() {
                   <Carousel className="w-full max-w-xs " setApi={setApi}>
                     <CarouselContent>
                       {(activeButton === "mobile"
-                        ? mobileWallpapers
-                        : laptopWallpapers
+                        ? mobileData
+                        : laptopData
                       ).map((image, index) => (
                         <CarouselItem key={index}>
                           <div className="p-1 md:p-2 lg:p-3">
                             <Card>
                               <CardContent className="relative flex aspect-square items-center justify-center p-2 md:p-4 lg:p-6">
                                 <Image
-                                  src={image}
+                                  src={image.path}
                                   alt={`Wallpaper ${index + 1}`}
                                   width={500}
                                   height={500}
                                   className="object-cover rounded-lg w-full h-full"
                                 />
-                                <DownloadButton imagePath={image} />
+                                <DownloadButton imagePath={image.path} />
                               </CardContent>
                             </Card>
                           </div>
@@ -156,7 +146,9 @@ export default function Home() {
 
         {/* section 3 */}
 
-        <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center"></div>
+        <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
+          <ParallaxScroll images={galleryData.map((img) => img.path)} />
+        </div>
       </div>
     </div>
   );
