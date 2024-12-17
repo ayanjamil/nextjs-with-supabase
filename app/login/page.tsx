@@ -7,7 +7,7 @@ import { SubmitButton } from "./submit-button";
 export default function Login({
   searchParams,
 }: {
-  searchParams: { message: string };
+  searchParams: URLSearchParams;
 }) {
   const signIn = async (formData: FormData) => {
     "use server";
@@ -108,9 +108,9 @@ export default function Login({
         >
           Sign Up
         </SubmitButton>
-        {searchParams?.message && (
+        {searchParams?.get("message") && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-            {searchParams.message}
+            {searchParams.get("message")}
           </p>
         )}
       </form>

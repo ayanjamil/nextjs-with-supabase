@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/carousel";
 import DownloadButton from "@/components/ui/download";
 import { ParallaxScroll } from "@/components/ui/parallax-scroll";
+import { BackgroundLines } from "@/components/ui/background-lines";
+import Particles from "@/components/ui/particles";
 import { mobileData } from "@/imagePaths/mobileWallpaperData";
 import { laptopData } from "@/imagePaths/laptopWallpaperData";
 import { galleryData } from "@/imagePaths/galleryData";
@@ -51,9 +53,8 @@ export default function Home() {
   }, [activeButton, api]);
 
   return (
-    <div className="flex-1 w-full flex flex-col  items-center">
+    <div className="relative flex-1 w-full flex flex-col items-center">
       {/* section 1 */}
-
       <div>
         <main className="flex-1 flex flex-col gap-4 lg:gap-6">
           <div className="w-full mb-6 lg:mb-10">
@@ -67,12 +68,12 @@ export default function Home() {
         </main>
 
         {/* section 2 */}
-
-        <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
+        <div className="relative w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
+          <Particles className="inset-0 -z-10 animate-fade-in" quantity={250} />
           <div className="w-full lg:w-1/2 h-full flex justify-center flex-col items-center lg:items-start p-4 lg:p-8 ml-0 lg:ml-11">
-            <div className=" font-homenaje text-6xl md:text-7xl lg:text-9xl pb-3 lg:pb-5 text-center lg:text-left">
+            <h1 className="font-homenaje text-6xl md:text-7xl lg:text-9xl pb-3 lg:pb-5 text-center lg:text-left">
               WALLPAPERS
-            </div>
+            </h1>
             <div className="text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
               To Elevate Your Display
             </div>
@@ -108,7 +109,7 @@ export default function Home() {
                 </>
               ) : (
                 <div>
-                  <Carousel className="w-full max-w-xs " setApi={setApi}>
+                  <Carousel className="w-full max-w-xs" setApi={setApi}>
                     <CarouselContent>
                       {(activeButton === "mobile"
                         ? mobileData
@@ -145,9 +146,10 @@ export default function Home() {
         </div>
 
         {/* section 3 */}
-
         <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
-          <ParallaxScroll images={galleryData.map((img) => img.path)} />
+          <BackgroundLines className="flex items-center justify-center w-full flex-col px-4">
+            <ParallaxScroll images={galleryData.map((img) => img.path)} />
+          </BackgroundLines>
         </div>
       </div>
     </div>
