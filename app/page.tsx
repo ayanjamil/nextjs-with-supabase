@@ -1,85 +1,157 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+"use client";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import landingPhoto from "@/public/images/PSOC.png"
-import Footer from "@/components/Footer";
+import landingPhoto from "@/public/images/PSOC.png";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import DownloadButton from "@/components/ui/download";
+import { ParallaxScroll } from "@/components/ui/parallax-scroll";
+import { BackgroundLines } from "@/components/ui/background-lines";
+import Particles from "@/components/ui/particles";
+import { mobileData } from "@/imagePaths/mobileWallpaperData";
+import { laptopData } from "@/imagePaths/laptopWallpaperData";
+import { galleryData } from "@/imagePaths/galleryData";
 
-export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
+export default function Home() {
+  const [activeButton, setActiveButton] = useState<"mobile" | "laptop" | null>(
+    null
+  );
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
     }
-  };
 
-  const isSupabaseConnected = canInitSupabaseClient();
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
 
-  // return (
-  //   <div className="flex-1 w-full flex flex-col gap-20 items-center">
-  //     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-  //       <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-  //         <DeployButton />
-  //         {isSupabaseConnected && <AuthButton />}
-  //       </div>
-  //     </nav>
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
 
-  //     <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
-  //       <Header />
-  //       <main className="flex-1 flex flex-col gap-6">
-  //         <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-  //         {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-  //       </main>
-  //     </div>
-
-  //     <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-  //       <p>
-  //         Powered by{" "}
-  //         <a
-  //           href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-  //           target="_blank"
-  //           className="font-bold hover:underline"
-  //           rel="noreferrer"
-  //         >
-  //           Supabase
-  //         </a>
-  //       </p>
-  //     </footer>
-  //   </div>
-  // );
+  useEffect(() => {
+    if (activeButton === "mobile") {
+      setCount(mobileData.length);
+    } else if (activeButton === "laptop") {
+      setCount(laptopData.length);
+    }
+    if (api) {
+      api.scrollTo(0);
+      setCurrent(1);
+    }
+  }, [activeButton, api]);
 
   return (
-    <div className="flex-1 w-full flex flex-col  items-center">
-      {/* <Header /> */}
+    <div className="relative flex-1 w-full flex flex-col items-center">
+      {/* section 1 */}
       <div>
-        <main className="flex-1 flex flex-col gap-6">
-          <div className="w-full mb-10 ">
-            <Image src={landingPhoto} alt="BIT Logo" height={900} className="mx-auto rounded-lg" />
+        <main className="flex-1 flex flex-col gap-4 lg:gap-6">
+          <div className="w-full mb-6 lg:mb-10">
+            <Image
+              src={landingPhoto}
+              alt="BIT Logo"
+              height={900}
+              className="mx-auto rounded-lg"
+            />
           </div>
         </main>
-        {/* <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-          <p>
 
-            <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-              target="_blank"
-              className="font-bold hover:underline"
-              rel="noreferrer"
-            >
-              Contact Us
-            </a>
-          </p>
-        </footer> */}
+        {/* section 2 */}
+        <div className="relative w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
+          <Particles className="inset-0 -z-10 animate-fade-in" quantity={250} />
+          <div className="w-full lg:w-1/2 h-full flex justify-center flex-col items-center lg:items-start p-4 lg:p-8 ml-0 lg:ml-11">
+            <h1 className="font-homenaje text-6xl md:text-7xl lg:text-9xl pb-3 lg:pb-5 text-center lg:text-left">
+              WALLPAPERS
+            </h1>
+            <div className="text-xl md:text-2xl lg:text-3xl text-center lg:text-left">
+              To Elevate Your Display
+            </div>
+            {activeButton && (
+              <button
+                className="mt-6 px-6 py-3 text-lg md:text-xl bg-btn-background hover:bg-btn-background-hover rounded-lg transition-colors"
+                onClick={() =>
+                  activeButton === "mobile"
+                    ? setActiveButton("laptop")
+                    : setActiveButton("mobile")
+                }
+              >
+                {`For ${activeButton === "mobile" ? "Laptop" : "Mobile"}`}
+              </button>
+            )}
+          </div>
+          <div className="w-full lg:w-1/2 h-full flex items-center justify-center">
+            <div className="flex flex-col gap-4 md:gap-6">
+              {!activeButton ? (
+                <>
+                  <button
+                    className="px-6 py-3 text-lg md:text-xl bg-btn-background hover:bg-btn-background-hover rounded-lg transition-colors"
+                    onClick={() => setActiveButton("mobile")}
+                  >
+                    For Mobile
+                  </button>
+                  <button
+                    className="px-6 py-3 text-lg md:text-xl bg-btn-background hover:bg-btn-background-hover rounded-lg transition-colors"
+                    onClick={() => setActiveButton("laptop")}
+                  >
+                    For Laptop
+                  </button>
+                </>
+              ) : (
+                <div>
+                  <Carousel className="w-full max-w-xs" setApi={setApi}>
+                    <CarouselContent>
+                      {(activeButton === "mobile"
+                        ? mobileData
+                        : laptopData
+                      ).map((image, index) => (
+                        <CarouselItem key={index}>
+                          <div className="p-1 md:p-2 lg:p-3">
+                            <Card>
+                              <CardContent className="relative flex aspect-square items-center justify-center p-2 md:p-4 lg:p-6">
+                                <Image
+                                  src={image.path}
+                                  alt={`Wallpaper ${index + 1}`}
+                                  width={500}
+                                  height={500}
+                                  className="object-cover rounded-lg w-full h-full"
+                                />
+                                <DownloadButton imagePath={image.path} />
+                              </CardContent>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                  <div className="py-2 text-center text-sm text-muted-foreground">
+                    Slide {current} of {count}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
 
+        {/* section 3 */}
+        <div className="w-full mb-6 lg:mb-10 h-[600px] lg:h-[900px] flex flex-col lg:flex-row items-center">
+          <BackgroundLines className="flex items-center justify-center w-full flex-col px-4">
+            <ParallaxScroll images={galleryData.map((img) => img.path)} />
+          </BackgroundLines>
+        </div>
       </div>
-
     </div>
   );
 }

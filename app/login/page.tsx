@@ -1,14 +1,11 @@
 import Link from "next/link";
+import { PageProps } from "@/.next/types/app/layout";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+export default function Login({ searchParams }: PageProps) {
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -108,7 +105,7 @@ export default function Login({
         >
           Sign Up
         </SubmitButton>
-        {searchParams?.message && (
+        {typeof searchParams.message === "string" && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}
           </p>
